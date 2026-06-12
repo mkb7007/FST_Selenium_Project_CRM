@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite parallel="classes" name="Suite">
-	<test name="Test Project">
+	<test name="Project">
 		<classes>
 			<class name="project.FirstTest" />
-		</classes>
-	</test>
-
-	<test name="project">
-	<!--<groups>
-	  <run>
-		<include name="headingTests"/>
-		<include name="buttonTests"/>
-	    </run>
-	    </groups>-->
-	    <parameter name="username" value="admin"/>
-	    <parameter name="password" value="password"/>
-		<classes>
-			<class name="project.FirstTest" />
-			
+			<class name="project.Activity9" />
 		</classes>
 	</test>
 </suite>

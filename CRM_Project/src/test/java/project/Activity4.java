@@ -14,7 +14,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class FirstTest {
+public class Activity4 {
 	
 	//Instantiating driver
 	WebDriver driver;
@@ -36,7 +36,6 @@ public class FirstTest {
 	  assertEquals(driver.getTitle(), "SuiteCRM");
   }
   
-
   @Test(priority = 2)
   public void loginTest() {
 	 
@@ -66,7 +65,7 @@ public class FirstTest {
   @AfterClass(alwaysRun = true)
   public void tearDown() {
 	  //Closing the browser
-	  driver.quit();
+//	  driver.quit();
 	  }
 
 }
