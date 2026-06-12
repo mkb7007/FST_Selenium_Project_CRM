@@ -65,7 +65,7 @@ public class Activity4 {
   @AfterClass(alwaysRun = true)
   public void tearDown() {
 	  //Closing the browser
-//	  driver.quit();
+	  driver.quit();
 	  }
 
 }

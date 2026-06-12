@@ -1,6 +1,8 @@
 package project;
 
 import java.time.Duration;
+import static org.testng.Assert.assertEquals;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +16,7 @@ public class Activity3 {
 	
 	//Instantiating driver
 	WebDriver driver;
+	WebDriverWait wait;
 	
 	@BeforeClass
 	  public void setUp() throws InterruptedException {
@@ -29,9 +32,10 @@ public class Activity3 {
 	
   @Test
   public void copyrightTextCheck() {
-	  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	  wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	  String copyrightText=driver.findElement(By.xpath("//a[text()=' © Supercharged by SuiteCRM ']")).getText();
-		  System.out.println(copyrightText);
+	  assertEquals(copyrightText,"© Supercharged by SuiteCRM");
+	  System.out.println(copyrightText);
 	  }
   
 
