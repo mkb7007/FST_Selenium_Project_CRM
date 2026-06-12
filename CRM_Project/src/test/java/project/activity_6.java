@@ -1,7 +1,10 @@
 package project;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.time.Duration;
-import java.util.NoSuchElementException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,41 +15,67 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class activity_6 {
-	WebDriver driver;
-	@BeforeClass
-	  public void setUp() {
-		driver = new FirefoxDriver();
-		driver.get("http://crm.local:3050/#/Login");
-	  }
-	@Test
-	public void verifyAccountsMenu() {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+public class FirstTest {
 
-	    try {
-	        login(wait);
-	        clickAccountsMenu(wait);
-	        System.out.println("Login successful and Accounts menu clicked");
-	    } catch (Exception e) {
-	        System.out.println("Accounts menu not found");
-	    }
-	}
+    WebDriver driver;
 
-	//Helper Methods
-	private void login(WebDriverWait wait) {
-	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username"))).sendKeys("admin");
-	    driver.findElement(By.name("password")).sendKeys("5Nx#I6BK%r3$8vz0ch");
-	    driver.findElement(By.id("login-button")).click();
-	}
-	private void clickAccountsMenu(WebDriverWait wait) {
-	    By accountsMenu = By.xpath("//a/span[contains(text(),'Accounts')]");
-	    WebElement menu = wait.until(ExpectedConditions.elementToBeClickable(accountsMenu));
-	    menu.click();
-	}
+    @BeforeClass(alwaysRun = true)
+    public void setUp() {
+        driver = new FirefoxDriver();
+        driver.get("http://crm.local:3050");
+    }
 
-  @AfterClass
-  public void tearDown() {
-	  //Closing the browser
-	  driver.quit();
-	  }
+    @Test(priority = 1)
+    public void verifyPage() {
+        assertEquals(driver.getTitle(), "SuiteCRM");
+    }
+
+    @Test(priority = 2)
+    public void enterCredentialsAndLogin() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        WebElement username = wait.until(
+            ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Username']"))
+        );
+        username.sendKeys("admin");
+
+        driver.findElement(By.xpath("//input[@name='password']"))
+              .sendKeys("5Nx#I6BK%r3$8vz0ch");
+
+        driver.findElement(By.id("login-button")).click();
+    }
+
+
+    @Test(priority = 3, dependsOnMethods = "enterCredentialsAndLogin")
+    public void verifyLoginSuccess() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        wait.until(ExpectedConditions.urlContains("home"));
+
+        // Verify login success
+        assertTrue(driver.getCurrentUrl().contains("home"), "Login failed");
+    }
+
+
+    @Test(priority = 4, dependsOnMethods = "verifyLoginSuccess")
+    public void locateAccountsMenu() {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        WebElement accountsMenu = wait.until(
+            ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//a/span[text()='Accounts']")
+            )
+        );
+
+        // Verify Accounts menu exists
+        assertTrue(accountsMenu.isDisplayed(), "Accounts menu is not visible");
+    }
+    
+    @AfterClass(alwaysRun = true)
+    public void tearDown() {
+        driver.quit();
+    }
 }
