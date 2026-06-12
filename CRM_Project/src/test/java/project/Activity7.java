@@ -90,10 +90,10 @@ public class Activity7 {
 
 		// Get the Office phone number of the first user
 		WebElement phoneNum = driver
-				.findElement(By.xpath("//a[@href='tel:9847634-6556']"));
+				.findElement(By.xpath("//a[@href='tel:4089827873']"));
 
 		// Verify the phone number
-		assertEquals("9847634-6556", phoneNum.getText().trim());
+		assertEquals("4089827873", phoneNum.getText().trim());
 
 		// Get the company name
 		    WebElement companyName = driver.findElement(
@@ -111,6 +111,6 @@ public class Activity7 {
 	public void tearDown() {
 
 		// Close Browser
-//        driver.quit();
+       driver.quit();
 	}
 }
