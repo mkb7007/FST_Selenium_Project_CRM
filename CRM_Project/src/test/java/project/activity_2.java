@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -41,6 +42,9 @@ public class activity_2 {
 
         // Print the URL
         System.out.println("Header Image URL: " + imageURL);
+        
+        //Assert statement
+        Assert.assertEquals(imageURL, "http://crm.local:3050/legacy/themes/default/images/company_logo.png");
     }
 
     @AfterClass
